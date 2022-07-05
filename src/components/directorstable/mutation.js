@@ -1,19 +1,27 @@
-import { gql } from "@apollo/client";
-
+import { gql } from '@apollo/client';
 
 export const addDirectorMutation = gql`
-mutation addDirector($name: String!, $age: Int) {
+  mutation addDirector($name: String!, $age: Int) {
     addDirector(name: $name, age: $age) {
-        name
-        age
+      name
+      age
     }
-}
-`
+  }
+`;
 
 export const updateDirectorMutation = gql`
-mutation updateDirector($id: ID, $name: String!, $age: Int){
-    updateDirector(id: $id, name: $name, age: $age){
-        name
-        age
+  mutation updateDirector($id: ID, $name: String!, $age: Int) {
+    updateDirector(id: $id, name: $name, age: $age) {
+      name
+      age
     }
-}`
+  }
+`;
+
+export const deleteDirectorMutation = gql`
+  mutation deleteDirector($id: ID) {
+    deleteDirector(id: $id) {
+      id
+    }
+  }
+`;
