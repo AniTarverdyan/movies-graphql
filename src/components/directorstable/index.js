@@ -1,24 +1,23 @@
-import { useMutation, useQuery } from '@apollo/client';
-import { Input, InputLabel } from '@material-ui/core';
-import React, { useState } from 'react';
+import { useMutation, useQuery } from "@apollo/client";
+import { Button, Input, InputLabel } from "@material-ui/core";
+import React, { useState } from "react";
 import {
   addDirectorMutation,
   deleteDirectorMutation,
   updateDirectorMutation,
-} from './mutation';
-import { directorQuery } from './queries';
-import './style.css';
+} from "./mutation";
+import { directorQuery } from "./queries";
+import "./style.css";
 
 const DirectorsTable = () => {
   const { loading, error, data } = useQuery(directorQuery);
-  const [inputName, setInputName] = useState('');
-  const [inputAge, setInputAge] = useState('');
+  const [inputName, setInputName] = useState("");
+  const [inputAge, setInputAge] = useState("");
   const [editingData, setEditingData] = useState({
-    id: '',
-    name: '',
-    age: '',
+    id: "",
+    name: "",
+    age: "",
   });
-
   const [addDirector] = useMutation(addDirectorMutation);
   const [deleteDirector] = useMutation(deleteDirectorMutation);
   const [updateDirector] = useMutation(updateDirectorMutation);
@@ -39,8 +38,8 @@ const DirectorsTable = () => {
       refetchQueries: [directorQuery],
     });
 
-    setInputName('');
-    setInputAge('');
+    setInputName("");
+    setInputAge("");
   };
 
   const onRemoveDirector = (id) => () => {
@@ -57,9 +56,9 @@ const DirectorsTable = () => {
 
   const onCancelDirector = () => {
     setEditingData({
-      id: '',
-      name: '',
-      age: '',
+      id: "",
+      name: "",
+      age: "",
     });
   };
 
@@ -91,30 +90,34 @@ const DirectorsTable = () => {
   };
 
   return (
-    <div className='director'>
-      <div>
-        <InputLabel htmlFor='component-helper'>Director's Name</InputLabel>
-        <Input onChange={handleChangeName} value={inputName} />
-      </div>
-      <div>
-        <InputLabel htmlFor='component-helper'>Director's Age</InputLabel>
-        <Input type='number' onChange={handleChangeAge} value={inputAge} />
-      </div>
-      <div>
-        <button onClick={onAddDirector}>Add</button>
+    <div className="director">
+      <div className="director-input">
+        <div>
+          <InputLabel>Director's Name</InputLabel>
+          <Input onChange={handleChangeName} value={inputName} />
+        </div>
+        <div>
+          <InputLabel>Director's Age</InputLabel>
+          <Input type="number" onChange={handleChangeAge} value={inputAge} />
+        </div>
+        <div>
+          <Button variant="outlined" color="inherit" onClick={onAddDirector}>
+            Add
+          </Button>
+        </div>
       </div>
       {data.directors.map((item) => {
         return editingData.id === item.id ? (
-          <div className='director-data-box'>
+          <div className="director-data-box" key={item.id}>
             <div>
-              Name:{' '}
+              Name:{" "}
               <input
                 value={editingData.name}
                 onChange={onEditingDirectorNameChange}
               />
             </div>
             <div>
-              Age:{' '}
+              Age:{" "}
               <input
                 value={editingData.age}
                 onChange={onEditingDirectorAgeChange}
@@ -124,13 +127,15 @@ const DirectorsTable = () => {
             <button onClick={onCancelDirector}>cancel</button>
           </div>
         ) : (
-          <div className='director-data-box'>
+          <div className="director-data-box">
             <div>Name: {item.name}</div>
             <div>Age: {item.age}</div>
-            <button onClick={onRemoveDirector(item.id)}>delete</button>
-            <button onClick={onEditDirector(item.id, item.name, item.age)}>
-              edit
-            </button>
+            <div>
+              <button onClick={onRemoveDirector(item.id)}>delete</button>
+              <button onClick={onEditDirector(item.id, item.name, item.age)}>
+                edit
+              </button>
+            </div>
           </div>
         );
       })}

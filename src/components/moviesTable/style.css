@@ -1,15 +1,10 @@
-.director {
+.movie {
     display: flex;
     flex-direction: column;
     flex: 1
 }
 
-.director>div {
-  
-    margin-top: 30px;
-}
-
-.director-input {
+.movie-input {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -17,11 +12,15 @@
     top: 100px;
 } 
 
-.director-input>div {
-margin: 7px
+.movie-input>div {
+    margin: 7px
 }
 
-.director-data-box {
+.movie>div {
+    margin-top: 30px;
+}
+
+.movie-data-box {
     width: 300px;
     height: 110px;
     border: 1px solid rgb(85, 10, 51);
@@ -29,8 +28,7 @@ margin: 7px
     background-color: rgb(243, 223, 235);
 }
 
-.director-data-box>div {
+.movie-data-box>div {
     margin: 7px;
 }
-
 
